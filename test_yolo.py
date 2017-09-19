@@ -114,7 +114,13 @@ def _main(args):
         score_threshold=args.score_threshold,
         iou_threshold=args.iou_threshold)
 
-    for image_file in os.listdir(test_path):
+    def files(path):
+        for file in os.listdir(path):
+            if os.path.isfile(os.path.join(path, file)):
+                yield file
+
+    for image_file in files(test_path):
+        print("image file: {}".format(image_file))
         try:
             image_type = imghdr.what(os.path.join(test_path, image_file))
             if not image_type:
